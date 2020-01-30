@@ -40,7 +40,7 @@
     <FrameLayout
         android:id="@+id/layout_video"
         android:layout_width="match_parent"
-        android:layout_height="400dp" >
+        android:layout_height="450dp" >
         <VideoView
             android:id="@+id/videoView"
             android:layout_width="wrap_content"
@@ -52,27 +52,42 @@
     </FrameLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="20dp">
-        <ImageButton
-            android:id="@+id/ic_play"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/ic_white_play"
-            android:layout_alignParentLeft="true"
-            android:onClick="onClick"/>
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="13dp"
+        android:layout_gravity="center_horizontal">
         <ImageButton
             android:id="@+id/ic_rewind"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="18dp"
             android:background="@drawable/ic_white_rewind"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="30dp"
+            android:onClick="onClick"/>
+        <ImageButton
+            android:id="@+id/ic_play"
+            android:layout_width="16dp"
+            android:layout_height="18dp"
+            android:background="@drawable/ic_white_play"
             android:layout_alignParentRight="true"
             android:onClick="onClick"/>
-
     </RelativeLayout>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="133dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@color/white"
+            android:text="프리셋 선택"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="20dp"
+            />
+    </LinearLayout>
 
 
 </LinearLayout>
