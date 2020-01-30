@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FxCropper</string>
+    <string name="app_provider">com.fx.fxcropper.provider</string>
+
 </resources>
