@@ -40,16 +40,17 @@
     <FrameLayout
         android:id="@+id/layout_video"
         android:layout_width="match_parent"
-        android:layout_height="440dp"
+        android:layout_height="380dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
-        <VideoView
-            android:id="@+id/videoView"
+        <com.fx.fxcropper.cropview.CropVideoView
+            android:id="@+id/cropVideoView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:scaleType="center"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center"
             />
+
 
     </FrameLayout>
 
@@ -59,7 +60,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="13dp"
-        android:layout_marginBottom="13dp">
+        android:layout_marginBottom="20dp">
 
         <ImageButton
             android:id="@+id/ic_rewind"
@@ -94,137 +95,133 @@
             android:text="프리셋 선택"
             android:textColor="@color/white"
             android:textSize="13sp" />
-        <ScrollView
+        <HorizontalScrollView
             android:layout_width="wrap_content"
             android:layout_height="70dp">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                android:gravity="center">
-                <RadioGroup
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-                    <RadioButton
-                        android:id="@+id/preset_default"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_marginLeft="15dp"
-                        android:button="@color/transparent"
-                        android:background="@drawable/shape_rectangle_radiobutton">
-                        <ImageView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="16dp"/>
-                        <TextView
-                            style="@style/Preset_text_style"
-                            android:layout_marginBottom="10dp"
-                            android:text="기본"
-                            />
-                    </RadioButton>
-                    <RadioButton
-                        android:id="@+id/preset_insta_1_1"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_marginLeft="15dp"
-                        android:button="@color/transparent"
-                        android:background="@drawable/shape_rectangle_radiobutton">
-                        <ImageView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:src="@drawable/ic_instagram"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="16dp"/>
-                        <TextView
-                            style="@style/Preset_text_style"
-                            android:layout_marginBottom="10dp"
-                            android:text="1:1"
-                            />
-                    </RadioButton>
-                    <RadioButton
-                        android:id="@+id/preset_insta_4_5"
-                        android:layout_width="45dp"
-                        android:layout_height="56dp"
-                        android:layout_marginLeft="15dp"
-                        android:button="@color/transparent"
-                        android:background="@drawable/shape_rectangle_radiobutton">
-                        <ImageView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:src="@drawable/ic_instagram"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="16dp"/>
-                        <TextView
-                            style="@style/Preset_text_style"
-                            android:layout_marginBottom="10dp"
-                            android:text="4:5"
-                            />
-                    </RadioButton>
-                    <RadioButton
-                        android:id="@+id/preset_youtube_16_9"
-                        android:layout_width="56dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
-                        android:button="@color/transparent"
-                        android:background="@drawable/shape_rectangle_radiobutton">
-                        <ImageView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:src="@drawable/ic_youtube"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="16dp"/>
-                        <TextView
-                            style="@style/Preset_text_style"
-                            android:layout_marginBottom="10dp"
-                            android:text="16:9"
-                            />
-                    </RadioButton>
-                    <RadioButton
-                        android:id="@+id/preset_youtube_9_16"
-                        android:layout_width="30dp"
-                        android:layout_height="56dp"
-                        android:layout_marginLeft="15dp"
-                        android:button="@color/transparent"
-                        android:background="@drawable/shape_rectangle_radiobutton">
-                        <ImageView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:src="@drawable/ic_youtube"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="16dp"/>
-                        <TextView
-                            style="@style/Preset_text_style"
-                            android:layout_marginBottom="10dp"
-                            android:text="9:16"
-                            />
-                    </RadioButton>
-                    <RadioButton
-                        android:id="@+id/preset_tiktok_16_9"
-                        android:layout_width="56dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
-                        android:button="@color/transparent"
-                        android:background="@drawable/shape_rectangle_radiobutton">
-                        <ImageView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="16dp"/>
-                        <TextView
-                            style="@style/Preset_text_style"
-                            android:layout_marginBottom="10dp"
-                            android:text="16:9"
-                            />
-                    </RadioButton>
-
-                </RadioGroup>
+                android:gravity="center"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:id="@+id/preset_default"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginLeft="16dp"
+                    android:onClick="onClick"
+                    android:background="@drawable/shape_rectangle_presets_selected">
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="13dp"
+                        android:src="@drawable/ic_check"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="16dp"/>
+                    <TextView
+                        style="@style/Preset_text_style"
+                        android:layout_marginBottom="10dp"
+                        android:text="기본"
+                        />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/preset_insta_1_1"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginLeft="15dp"
+                    android:onClick="onClick"
+                    android:background="@drawable/shape_rectangle_presets_unselected">
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@drawable/ic_instagram"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="16dp"/>
+                    <TextView
+                        style="@style/Preset_text_style"
+                        android:layout_marginBottom="10dp"
+                        android:text="1:1"
+                        />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/preset_insta_4_5"
+                    android:layout_width="45dp"
+                    android:layout_height="56dp"
+                    android:layout_marginLeft="15dp"
+                    android:onClick="onClick"
+                    android:background="@drawable/shape_rectangle_presets_unselected">
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@drawable/ic_instagram"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="16dp"/>
+                    <TextView
+                        style="@style/Preset_text_style"
+                        android:layout_marginBottom="10dp"
+                        android:text="4:5"
+                        />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/preset_youtube_16_9"
+                    android:layout_width="56dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="15dp"
+                    android:onClick="onClick"
+                    android:background="@drawable/shape_rectangle_presets_unselected">
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@drawable/ic_youtube"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="4dp"/>
+                    <TextView
+                        style="@style/Preset_text_style"
+                        android:layout_marginBottom="3dp"
+                        android:text="16:9"
+                        />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/preset_youtube_9_16"
+                    android:layout_width="30dp"
+                    android:layout_height="56dp"
+                    android:layout_marginLeft="15dp"
+                    android:onClick="onClick"
+                    android:background="@drawable/shape_rectangle_presets_unselected">
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@drawable/ic_youtube"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="16dp"/>
+                    <TextView
+                        style="@style/Preset_text_style"
+                        android:layout_marginBottom="10dp"
+                        android:text="9:16"
+                        />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/preset_tiktok_16_9"
+                    android:layout_width="56dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="15dp"
+                    android:onClick="onClick"
+                    android:background="@drawable/shape_rectangle_presets_unselected"
+                    android:layout_marginRight="16dp">
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="4dp"/>
+                    <TextView
+                        style="@style/Preset_text_style"
+                        android:layout_marginBottom="3dp"
+                        android:text="16:9"
+                        />
+                </RelativeLayout>
 
 
             </LinearLayout>
-        </ScrollView>
+        </HorizontalScrollView>
     </LinearLayout>
     <Button
         android:id="@+id/btn_next"

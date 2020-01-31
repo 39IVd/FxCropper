@@ -23,7 +23,7 @@ import androidx.core.app.ActivityCompat
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
-    private var select_video_crop : Button? = null
+    private var select_video_crop: Button? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,12 +38,12 @@ class MainActivity : AppCompatActivity() {
                     Intent.createChooser(intent, "Select Video"),
                     REQUEST_TAKE_GALLERY_VIDEO
                 )
-            }
-            else {
+            } else {
                 requestStoragePermission()
             }
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_TAKE_GALLERY_VIDEO) {

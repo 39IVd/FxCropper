@@ -17,23 +17,22 @@ import java.util.*
 
 class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
     private var ic_play: ImageButton? = null
-    private var ic_rewind : ImageButton? = null
+    private var ic_rewind: ImageButton? = null
     private var text_video_name: TextView? = null
-    private var preset_default : RelativeLayout? = null
-    private var preset_insta_1_1 : RelativeLayout? = null
-    private var preset_insta_4_5 : RelativeLayout? = null
-    private var preset_youtube_16_9 : RelativeLayout? = null
-    private var preset_youtube_9_16 : RelativeLayout? = null
-    private var preset_tiktok_16_9 : RelativeLayout? = null
+    private var preset_default: RelativeLayout? = null
+    private var preset_insta_1_1: RelativeLayout? = null
+    private var preset_insta_4_5: RelativeLayout? = null
+    private var preset_youtube_16_9: RelativeLayout? = null
+    private var preset_youtube_9_16: RelativeLayout? = null
+    private var preset_tiktok_16_9: RelativeLayout? = null
     private var mVideoPlayer: VideoPlayer? = null
     private var mCropVideoView: CropVideoView? = null
-
     var srcFile: String? = null
     var dstFile: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_video_crop2)
+        setContentView(R.layout.activity_video_crop)
         componentSetting()
 
         if (intent.extras != null) {
@@ -51,7 +50,6 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
         initPlayer(srcFile.toString())
 
 
-
     }
 
     fun componentSetting() {
@@ -67,7 +65,8 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
         preset_tiktok_16_9 = findViewById(R.id.preset_tiktok_16_9) as RelativeLayout
         mCropVideoView = findViewById(R.id.cropVideoView) as CropVideoView
     }
-    private fun initPlayer(uri : String) {
+
+    private fun initPlayer(uri: String) {
         Log.d("initPlayer uri ", uri)
         if (!File(uri).exists()) {
             Toast.makeText(this, "File doesn't exists", Toast.LENGTH_SHORT).show()
@@ -95,25 +94,22 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when(v?.id) {
-            R.id.ic_play-> {
+        when (v?.id) {
+            R.id.ic_play -> {
                 if (mVideoPlayer!!.isPlaying) {
                     mVideoPlayer?.play(false)
                     ic_play!!.setBackgroundResource(R.drawable.ic_white_play)
-                }
-                else {
+                } else {
                     mVideoPlayer?.play(true)
                     ic_play!!.setBackgroundResource(R.drawable.ic_white_pause)
                 }
             }
-            R.id.ic_rewind-> {
+            R.id.ic_rewind -> {
                 mVideoPlayer?.seekTo(0)
                 mVideoPlayer?.play(true)
-//                mVideoView!!.seekTo(0)
                 ic_play!!.setBackgroundResource(R.drawable.ic_white_pause)
-
             }
-            R.id.preset_default-> {
+            R.id.preset_default -> {
                 mCropVideoView?.setFixedAspectRatio(false)
                 preset_default?.setBackgroundResource(R.drawable.shape_rectangle_presets_selected)
                 preset_insta_1_1?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
@@ -122,7 +118,7 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
                 preset_youtube_9_16?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
                 preset_tiktok_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
             }
-            R.id.preset_insta_1_1-> {
+            R.id.preset_insta_1_1 -> {
                 mCropVideoView?.setFixedAspectRatio(true)
                 mCropVideoView?.setAspectRatio(10, 10)
                 preset_default?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
@@ -132,9 +128,9 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
                 preset_youtube_9_16?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
                 preset_tiktok_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
             }
-            R.id.preset_insta_4_5-> {
+            R.id.preset_insta_4_5 -> {
                 mCropVideoView?.setFixedAspectRatio(true)
-                mCropVideoView?.setAspectRatio(4,5)
+                mCropVideoView?.setAspectRatio(4, 5)
                 preset_default?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
                 preset_insta_1_1?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
                 preset_insta_4_5?.setBackgroundResource(R.drawable.shape_rectangle_presets_selected)
@@ -142,7 +138,7 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
                 preset_youtube_9_16?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
                 preset_tiktok_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
             }
-            R.id.preset_youtube_16_9-> {
+            R.id.preset_youtube_16_9 -> {
                 mCropVideoView?.setFixedAspectRatio(true)
                 mCropVideoView?.setAspectRatio(16, 9)
                 preset_default?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
@@ -152,9 +148,9 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
                 preset_youtube_9_16?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
                 preset_tiktok_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
             }
-            R.id.preset_youtube_9_16-> {
+            R.id.preset_youtube_9_16 -> {
                 mCropVideoView?.setFixedAspectRatio(true)
-                mCropVideoView?.setAspectRatio(9,16)
+                mCropVideoView?.setAspectRatio(9, 16)
                 preset_default?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
                 preset_insta_1_1?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
                 preset_insta_4_5?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
@@ -162,7 +158,7 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
                 preset_youtube_9_16?.setBackgroundResource(R.drawable.shape_rectangle_presets_selected)
                 preset_tiktok_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
             }
-            R.id.preset_tiktok_16_9-> {
+            R.id.preset_tiktok_16_9 -> {
                 mCropVideoView?.setFixedAspectRatio(true)
                 mCropVideoView?.setAspectRatio(16, 9)
                 preset_default?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)

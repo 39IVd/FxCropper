@@ -42,7 +42,10 @@ class VideoPlayer(context: Context) : Player.EventListener, TimeBar.OnScrubListe
         val extractorsFactory = DefaultExtractorsFactory()
         val videoSource = ExtractorMediaSource(
             Uri.parse(uri),
-            dataSourceFactory, extractorsFactory, android.os.Handler(), ExtractorMediaSource.EventListener {  }
+            dataSourceFactory,
+            extractorsFactory,
+            android.os.Handler(),
+            ExtractorMediaSource.EventListener { }
         )
 
         player.prepare(videoSource)
@@ -60,8 +63,10 @@ class VideoPlayer(context: Context) : Player.EventListener, TimeBar.OnScrubListe
     ) {
 
     }
+
     override fun onTimelineChanged(timeline: Timeline?, manifest: Any?, reason: Int) {
     }
+
     override fun onLoadingChanged(isLoading: Boolean) {
 
     }
