@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_presets"
+    android:layout_width="wrap_content"
+    android:layout_height="56dp">
+
+    <View
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/shape_rectangle_presets_unselected" />
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="13dp"
+        android:src="@drawable/ic_check"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:lineSpacingExtra="4sp"
+        android:text="기본"
+        android:textColor="@color/white"
+        android:textSize="8sp" />
+</RelativeLayout>
