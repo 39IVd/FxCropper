@@ -7,7 +7,6 @@ import com.fx.fxcropper.cropview.CropView
 import com.fx.fxcropper.cropview.window.handle.Handle
 
 object HandleUtil {
-    private val TARGET_RADIUS_DP = 24
 
     fun getTargetRadius(context: Context): Float {
         return TypedValue.applyDimension(1, 24.0f, context.resources.displayMetrics)

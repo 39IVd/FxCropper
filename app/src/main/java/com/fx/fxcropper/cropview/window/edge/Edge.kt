@@ -1,7 +1,6 @@
 package com.fx.fxcropper.cropview.window.edge
 
 import android.graphics.Rect
-import android.view.View
 import com.fx.fxcropper.cropview.util.AspectRatioUtil
 
 enum class Edge private constructor() {
@@ -172,15 +171,6 @@ enum class Edge private constructor() {
         return newCoordinate - oldCoordinate
     }
 
-    fun snapToView(view: View) {
-        when (this) {
-            LEFT -> this.coordinate = 0.0f
-            TOP -> this.coordinate = 0.0f
-            RIGHT -> this.coordinate = view.width.toFloat()
-            BOTTOM -> this.coordinate = view.height.toFloat()
-        }
-
-    }
     fun getWidth(): Float {
         return RIGHT.get_Coordinate() - LEFT.get_Coordinate()
     }
@@ -189,7 +179,7 @@ enum class Edge private constructor() {
         return BOTTOM.get_Coordinate() - TOP.get_Coordinate()
     }
 
-    fun isOutsideMargin(rect: Rect, margin: Float): Boolean {
+    fun isOutsideMargin(rect: Rect, margin: Float): Boolean? {
         var result = false
         when (this) {
             LEFT -> result = this.coordinate - rect.left.toFloat() < margin
@@ -201,22 +191,9 @@ enum class Edge private constructor() {
         return result
     }
 
-    fun isOutsideFrame(rect: Rect): Boolean {
-        val margin = 0.0
-        var result = false
-        when (this) {
-            LEFT -> result = (this.coordinate - rect.left.toFloat()).toDouble() < margin
-            TOP -> result = (this.coordinate - rect.top.toFloat()).toDouble() < margin
-            RIGHT -> result = (rect.right.toFloat() - this.coordinate).toDouble() < margin
-            BOTTOM -> result = (rect.bottom.toFloat() - this.coordinate).toDouble() < margin
-        }
-
-        return result
-    }
 
     companion object {
 
-        val MIN_CROP_LENGTH_PX = 40
 
         val width: Float
             get() = RIGHT.coordinate - LEFT.coordinate

@@ -76,25 +76,25 @@ class CropView : View {
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        return if (!isEnabled) {
-            false
+        if (!isEnabled) {
+            return false
         } else {
             when (event.action) {
                 0 -> {
                     onActionDown(event.x, event.y)
-                    true
+                    return true
                 }
                 1, 3 -> {
                     parent.requestDisallowInterceptTouchEvent(false)
                     onActionUp()
-                    true
+                    return true
                 }
                 2 -> {
                     onActionMove(event.x, event.y)
                     parent.requestDisallowInterceptTouchEvent(true)
-                    true
+                    return true
                 }
-                else -> false
+                else -> return false
             }
         }
     }

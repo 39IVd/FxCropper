@@ -16,9 +16,9 @@ internal class CornerHandleHelper(horizontalEdge: Edge, verticalEdge: Edge) :
         val activeEdges = this.getActiveEdges(x, y, targetAspectRatio)
         val primaryEdge = activeEdges.primary
         val secondaryEdge = activeEdges.secondary
-        primaryEdge.adjustCoordinate(x, y, imageRect, snapRadius, targetAspectRatio)
-        secondaryEdge.adjustCoordinate(targetAspectRatio)
-        if (secondaryEdge.isOutsideMargin(imageRect, snapRadius)) {
+        primaryEdge!!.adjustCoordinate(x, y, imageRect, snapRadius, targetAspectRatio)
+        secondaryEdge!!.adjustCoordinate(targetAspectRatio)
+        if (secondaryEdge.isOutsideMargin(imageRect, snapRadius)!!) {
             secondaryEdge.snapToRect(imageRect)
             primaryEdge.adjustCoordinate(targetAspectRatio)
         }

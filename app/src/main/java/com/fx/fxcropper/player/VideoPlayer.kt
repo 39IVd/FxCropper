@@ -2,9 +2,7 @@ package com.fx.fxcropper.player
 
 import android.content.Context
 import android.net.Uri
-import android.os.Handler
 import com.google.android.exoplayer2.*
-import com.google.android.exoplayer2.C.TIME_UNSET
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.TrackGroupArray
@@ -18,14 +16,11 @@ import com.google.android.exoplayer2.util.Util
 import com.google.android.exoplayer2.video.VideoListener
 
 class VideoPlayer(context: Context) : Player.EventListener, TimeBar.OnScrubListener, VideoListener {
+
+
     val player: SimpleExoPlayer
-    private val mUpdateListener: OnProgressUpdateListener? = null
-    private val progressHandler: Handler
-    private var progressUpdater: Runnable? = null
-
-
     val isPlaying: Boolean
-        get() = player.getPlayWhenReady()
+        get() = player.playWhenReady
 
     init {
         val bandwidthMeter = DefaultBandwidthMeter()
@@ -37,9 +32,8 @@ class VideoPlayer(context: Context) : Player.EventListener, TimeBar.OnScrubListe
             trackSelector,
             loadControl
         )
-        player.setRepeatMode(Player.REPEAT_MODE_ONE)
+        player.repeatMode = Player.REPEAT_MODE_ONE
         player.addListener(this)
-        progressHandler = Handler()
     }
 
     fun initMediaSource(context: Context, uri: String) {
@@ -48,7 +42,7 @@ class VideoPlayer(context: Context) : Player.EventListener, TimeBar.OnScrubListe
         val extractorsFactory = DefaultExtractorsFactory()
         val videoSource = ExtractorMediaSource(
             Uri.parse(uri),
-            dataSourceFactory, extractorsFactory, null, null
+            dataSourceFactory, extractorsFactory, android.os.Handler(), ExtractorMediaSource.EventListener {  }
         )
 
         player.prepare(videoSource)
@@ -56,27 +50,23 @@ class VideoPlayer(context: Context) : Player.EventListener, TimeBar.OnScrubListe
     }
 
     fun play(play: Boolean) {
-        player.setPlayWhenReady(play)
-        if (!play) {
-            removeUpdater()
-        }
+        player.playWhenReady = play
     }
 
-    override fun onTimelineChanged(timeline: Timeline, manifest: Any, reason: Int) {
-        updateProgress()
+
+    override fun onTracksChanged(
+        trackGroups: TrackGroupArray,
+        trackSelections: TrackSelectionArray
+    ) {
+
     }
-
-    override fun onTracksChanged(trackGroups: TrackGroupArray, trackSelections: TrackSelectionArray) {
-
+    override fun onTimelineChanged(timeline: Timeline?, manifest: Any?, reason: Int) {
     }
-
     override fun onLoadingChanged(isLoading: Boolean) {
 
     }
 
-    override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
-        updateProgress()
-    }
+    override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {}
 
     override fun onRepeatModeChanged(repeatMode: Int) {
 
@@ -90,9 +80,7 @@ class VideoPlayer(context: Context) : Player.EventListener, TimeBar.OnScrubListe
 
     }
 
-    override fun onPositionDiscontinuity(reason: Int) {
-        updateProgress()
-    }
+    override fun onPositionDiscontinuity(reason: Int) {}
 
     override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
 
@@ -108,47 +96,10 @@ class VideoPlayer(context: Context) : Player.EventListener, TimeBar.OnScrubListe
 
     override fun onScrubMove(timeBar: TimeBar, position: Long) {
         seekTo(position)
-        updateProgress()
     }
 
     override fun onScrubStop(timeBar: TimeBar, position: Long, canceled: Boolean) {
         seekTo(position)
-        updateProgress()
-    }
-
-    private fun updateProgress() {
-        mUpdateListener?.onProgressUpdate(
-            player.getCurrentPosition(),
-            if (player.getDuration() === TIME_UNSET) 0L else player.getDuration(),
-            player.getBufferedPosition()
-        )
-        initUpdateTimer()
-    }
-
-    private fun initUpdateTimer() {
-        val position = player.getCurrentPosition()
-        val playbackState = player.getPlaybackState()
-        var delayMs: Long
-        if (playbackState != ExoPlayer.STATE_IDLE && playbackState != ExoPlayer.STATE_ENDED) {
-            if (player.getPlayWhenReady() && playbackState == ExoPlayer.STATE_READY) {
-                delayMs = 1000 - position % 1000
-                if (delayMs < 200) {
-                    delayMs += 1000
-                }
-            } else {
-                delayMs = 1000
-            }
-
-            removeUpdater()
-            progressUpdater = Runnable { updateProgress() }
-
-            progressHandler.postDelayed(progressUpdater, delayMs)
-        }
-    }
-
-    private fun removeUpdater() {
-        if (progressUpdater != null)
-            progressHandler.removeCallbacks(progressUpdater)
     }
 
     fun seekTo(position: Long) {
@@ -162,16 +113,10 @@ class VideoPlayer(context: Context) : Player.EventListener, TimeBar.OnScrubListe
         unappliedRotationDegrees: Int,
         pixelWidthHeightRatio: Float
     ) {
-        mUpdateListener?.onFirstTimeUpdate(player.getDuration(), player.getCurrentPosition())
     }
 
     override fun onRenderedFirstFrame() {
 
     }
 
-    interface OnProgressUpdateListener {
-        fun onProgressUpdate(currentPosition: Long, duration: Long, bufferedPosition: Long)
-
-        fun onFirstTimeUpdate(duration: Long, currentPosition: Long)
-    }
 }

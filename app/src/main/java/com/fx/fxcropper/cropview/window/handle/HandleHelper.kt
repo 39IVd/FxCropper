@@ -12,10 +12,10 @@ internal abstract class HandleHelper(
     val activeEdges: EdgePair
 
     init {
-        this.activeEdges = EdgePair(this.mHorizontalEdge!!, this.mVerticalEdge!!)
+        this.activeEdges = EdgePair(this.mHorizontalEdge, this.mVerticalEdge)
     }
 
-    fun updateCropWindow(x: Float, y: Float, imageRect: Rect, snapRadius: Float) {
+    open fun updateCropWindow(x: Float, y: Float, imageRect: Rect, snapRadius: Float) {
         val activeEdges = this.activeEdges
         val primaryEdge = activeEdges.primary
         val secondaryEdge = activeEdges.secondary

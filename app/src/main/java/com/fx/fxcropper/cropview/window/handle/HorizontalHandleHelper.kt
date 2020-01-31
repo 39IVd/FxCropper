@@ -30,7 +30,7 @@ internal class HorizontalHandleHelper(private val mEdge: Edge) : HandleHelper(mE
         if (Edge.LEFT.isOutsideMargin(
                 imageRect,
                 snapRadius
-            ) && !this.mEdge.isNewRectangleOutOfBounds(Edge.LEFT, imageRect, targetAspectRatio)
+            )!! && !this.mEdge.isNewRectangleOutOfBounds(Edge.LEFT, imageRect, targetAspectRatio)
         ) {
             offset = Edge.LEFT.snapToRect(imageRect)
             Edge.RIGHT.offset(-offset)
@@ -40,7 +40,7 @@ internal class HorizontalHandleHelper(private val mEdge: Edge) : HandleHelper(mE
         if (Edge.RIGHT.isOutsideMargin(
                 imageRect,
                 snapRadius
-            ) && !this.mEdge.isNewRectangleOutOfBounds(Edge.RIGHT, imageRect, targetAspectRatio)
+            )!! && !this.mEdge.isNewRectangleOutOfBounds(Edge.RIGHT, imageRect, targetAspectRatio)
         ) {
             offset = Edge.RIGHT.snapToRect(imageRect)
             Edge.LEFT.offset(-offset)
