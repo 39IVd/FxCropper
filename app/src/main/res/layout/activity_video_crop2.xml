@@ -40,16 +40,24 @@
     <FrameLayout
         android:id="@+id/layout_video"
         android:layout_width="match_parent"
-        android:layout_height="440dp"
+        android:layout_height="380dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
-        <VideoView
-            android:id="@+id/videoView"
+<!--        <VideoView-->
+<!--            android:id="@+id/videoView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:scaleType="center"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            />-->
+        <com.fx.fxcropper.cropview.CropVideoView
+            android:id="@+id/cropVideoView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="center"
             android:layout_gravity="center_vertical"
             />
+
 
     </FrameLayout>
 
@@ -59,7 +67,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="13dp"
-        android:layout_marginBottom="13dp">
+        android:layout_marginBottom="20dp">
 
         <ImageButton
             android:id="@+id/ic_rewind"
@@ -109,7 +117,7 @@
                     android:layout_height="56dp"
                     android:layout_marginLeft="16dp"
                     android:onClick="onClick"
-                    android:background="@drawable/shape_rectangle_presets_unselected">
+                    android:background="@drawable/shape_rectangle_presets_selected">
                     <ImageView
                         android:layout_width="16dp"
                         android:layout_height="13dp"

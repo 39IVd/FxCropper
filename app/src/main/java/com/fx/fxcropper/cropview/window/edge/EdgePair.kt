@@ -1,4 +1,3 @@
 package com.fx.fxcropper.cropview.window.edge
 
-class EdgePair {
-}
+class EdgePair(var primary: Edge, var secondary: Edge)

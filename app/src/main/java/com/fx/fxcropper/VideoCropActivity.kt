@@ -22,7 +22,7 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
     private var preset_youtube_16_9 : RelativeLayout? = null
     private var preset_youtube_9_16 : RelativeLayout? = null
     private var preset_tiktok_16_9 : RelativeLayout? = null
-    private var list_presets: MutableList<RelativeLayout>? = null
+//    private var list_presets: MutableList<RelativeLayout>? = null
 
 
     var srcFile: String? = null
@@ -87,8 +87,8 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.ic_rewind-> {
                 mVideoView!!.seekTo(0)
-                mVideoView!!.pause()
-                ic_play!!.setBackgroundResource(R.drawable.ic_white_play)
+//                mVideoView!!.pause()
+                ic_play!!.setBackgroundResource(R.drawable.ic_white_pause)
 
             }
             R.id.preset_default-> {
