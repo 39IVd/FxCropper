@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_presets"
-    android:layout_width="wrap_content"
-    android:layout_height="56dp">
-
-    <View
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:background="@drawable/shape_rectangle_presets_unselected" />
+    android:layout_width="56dp"
+    android:layout_height="56dp"
+    android:layout_marginLeft="16dp"
+    android:onClick="onClick"
+    android:background="@drawable/shape_rectangle_presets_unselected">
     <ImageView
         android:layout_width="16dp"
         android:layout_height="13dp"

@@ -22,5 +22,10 @@
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_centerHorizontal">true</item>
     </style>
-    <style name="cropStyle" parent="Theme.AppCompat.Light.NoActionBar"/>
+
+    <style name="Preset_layout_style" >
+        <item name="android:onClick">onClick</item>
+        <item name="android:background">@drawable/shape_rectangle_presets_unselected</item>
+        <item name="android:layout_marginLeft">16dp</item>
+    </style>
 </resources>

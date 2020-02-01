@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import android.view.View
-import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -16,19 +16,16 @@ import java.io.File
 import java.util.*
 
 class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
-    private var ic_play: ImageButton? = null
-    private var ic_rewind: ImageButton? = null
-    private var text_video_name: TextView? = null
-    private var preset_default: RelativeLayout? = null
-    private var preset_insta_1_1: RelativeLayout? = null
-    private var preset_insta_4_5: RelativeLayout? = null
-    private var preset_youtube_16_9: RelativeLayout? = null
-    private var preset_youtube_9_16: RelativeLayout? = null
-    private var preset_tiktok_16_9: RelativeLayout? = null
-    private var mVideoPlayer: VideoPlayer? = null
-    private var mCropVideoView: CropVideoView? = null
-    var srcFile: String? = null
-    var dstFile: String? = null
+    lateinit var ic_play: ImageView
+    lateinit var ic_rewind: ImageView
+    lateinit var text_video_name: TextView
+    lateinit var mVideoPlayer: VideoPlayer
+    lateinit var mCropVideoView: CropVideoView
+    lateinit var srcFile: String
+    lateinit var dstFile: String
+    var list_preset = mutableListOf<RelativeLayout>()
+
+    var selected_preset = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,29 +38,32 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
 
         var videoname = srcFile!!.substring(srcFile!!.lastIndexOf('/') + 1)
         text_video_name?.setText(videoname)
-        Log.d("initPlayer uri ", srcFile.toString())
+        Log.d("initPlayer uri ", srcFile)
 
         dstFile =
             (Environment.getExternalStorageDirectory().toString() + "/" + getString(R.string.app_name) + Date().time
                     + "mp4")
 
-        initPlayer(srcFile.toString())
-
+        initPlayer(srcFile)
 
     }
 
     fun componentSetting() {
 
-        ic_play = findViewById(R.id.ic_play) as ImageButton
-        ic_rewind = findViewById(R.id.ic_rewind) as ImageButton
+        ic_play = findViewById(R.id.ic_play) as ImageView
+        ic_rewind = findViewById(R.id.ic_rewind) as ImageView
         text_video_name = findViewById(R.id.text_video_name) as TextView
-        preset_default = findViewById(R.id.preset_default) as RelativeLayout
-        preset_insta_1_1 = findViewById(R.id.preset_insta_1_1) as RelativeLayout
-        preset_insta_4_5 = findViewById(R.id.preset_insta_4_5) as RelativeLayout
-        preset_youtube_16_9 = findViewById(R.id.preset_youtube_16_9) as RelativeLayout
-        preset_youtube_9_16 = findViewById(R.id.preset_youtube_9_16) as RelativeLayout
-        preset_tiktok_16_9 = findViewById(R.id.preset_tiktok_16_9) as RelativeLayout
+        for (i in 1..6) {
+            var preset_id =
+                resources.getIdentifier("preset_$i", "id", "com.fx.fxcropper")
+            list_preset.add(findViewById(preset_id) as RelativeLayout)
+        }
+
+        var preset_1 = findViewById(R.id.preset_1) as RelativeLayout
+        preset_1.setBackgroundResource(R.drawable.shape_rectangle_presets_selected)
+
         mCropVideoView = findViewById(R.id.cropVideoView) as CropVideoView
+
     }
 
     private fun initPlayer(uri: String) {
@@ -75,8 +75,8 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
             return
         }
         mVideoPlayer = VideoPlayer(this)
-        mCropVideoView?.setPlayer(mVideoPlayer!!.player)
-        mVideoPlayer?.initMediaSource(this, uri)
+        mCropVideoView.setPlayer(mVideoPlayer!!.player)
+        mVideoPlayer.initMediaSource(this, uri)
         fetchVideoInfo(uri)
     }
 
@@ -90,83 +90,63 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
         val rotationDegrees =
             Integer.valueOf(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION))
 
-        mCropVideoView?.initBounds(videoWidth, videoHeight, rotationDegrees)
+        mCropVideoView.initBounds(videoWidth, videoHeight, rotationDegrees)
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.ic_play -> {
-                if (mVideoPlayer!!.isPlaying) {
-                    mVideoPlayer?.play(false)
-                    ic_play!!.setBackgroundResource(R.drawable.ic_white_play)
-                } else {
-                    mVideoPlayer?.play(true)
-                    ic_play!!.setBackgroundResource(R.drawable.ic_white_pause)
+    override fun onClick(v: View) {
+        if(v.id==R.id.ic_play) {
+            if (mVideoPlayer.isPlaying) {
+                mVideoPlayer.play(false)
+                ic_play.setBackgroundResource(R.drawable.ic_white_play)
+            } else {
+                mVideoPlayer.play(true)
+                ic_play.setBackgroundResource(R.drawable.ic_white_pause)
+            }
+        }
+        else if(v.id==R.id.ic_rewind) {
+            mVideoPlayer.seekTo(0)
+            mVideoPlayer.play(true)
+            ic_play.setBackgroundResource(R.drawable.ic_white_pause)
+        }
+        else {
+            when(v.id) {
+                R.id.preset_1 -> {
+                    mCropVideoView.setFixedAspectRatio(false)
+                    selected_preset = 1
+                }
+                R.id.preset_2 -> {
+                    mCropVideoView.setFixedAspectRatio(true)
+                    mCropVideoView.setAspectRatio(10, 10)
+                    selected_preset = 2
+                }
+                R.id.preset_3 -> {
+                    mCropVideoView.setFixedAspectRatio(true)
+                    mCropVideoView.setAspectRatio(4, 5)
+                    selected_preset = 3
+                }
+                R.id.preset_4 -> {
+                    mCropVideoView.setFixedAspectRatio(true)
+                    mCropVideoView.setAspectRatio(16, 9)
+                    selected_preset = 4
+                }
+                R.id.preset_5 -> {
+                    mCropVideoView.setFixedAspectRatio(true)
+                    mCropVideoView.setAspectRatio(9, 16)
+                    selected_preset = 5
+                }
+                R.id.preset_6 -> {
+                    mCropVideoView.setFixedAspectRatio(true)
+                    mCropVideoView.setAspectRatio(16, 9)
+                    selected_preset = 6
                 }
             }
-            R.id.ic_rewind -> {
-                mVideoPlayer?.seekTo(0)
-                mVideoPlayer?.play(true)
-                ic_play!!.setBackgroundResource(R.drawable.ic_white_pause)
-            }
-            R.id.preset_default -> {
-                mCropVideoView?.setFixedAspectRatio(false)
-                preset_default?.setBackgroundResource(R.drawable.shape_rectangle_presets_selected)
-                preset_insta_1_1?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_insta_4_5?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_youtube_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_youtube_9_16?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_tiktok_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-            }
-            R.id.preset_insta_1_1 -> {
-                mCropVideoView?.setFixedAspectRatio(true)
-                mCropVideoView?.setAspectRatio(10, 10)
-                preset_default?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_insta_1_1?.setBackgroundResource(R.drawable.shape_rectangle_presets_selected)
-                preset_insta_4_5?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_youtube_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_youtube_9_16?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_tiktok_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-            }
-            R.id.preset_insta_4_5 -> {
-                mCropVideoView?.setFixedAspectRatio(true)
-                mCropVideoView?.setAspectRatio(4, 5)
-                preset_default?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_insta_1_1?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_insta_4_5?.setBackgroundResource(R.drawable.shape_rectangle_presets_selected)
-                preset_youtube_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_youtube_9_16?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_tiktok_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-            }
-            R.id.preset_youtube_16_9 -> {
-                mCropVideoView?.setFixedAspectRatio(true)
-                mCropVideoView?.setAspectRatio(16, 9)
-                preset_default?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_insta_1_1?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_insta_4_5?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_youtube_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_selected)
-                preset_youtube_9_16?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_tiktok_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-            }
-            R.id.preset_youtube_9_16 -> {
-                mCropVideoView?.setFixedAspectRatio(true)
-                mCropVideoView?.setAspectRatio(9, 16)
-                preset_default?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_insta_1_1?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_insta_4_5?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_youtube_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_youtube_9_16?.setBackgroundResource(R.drawable.shape_rectangle_presets_selected)
-                preset_tiktok_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-            }
-            R.id.preset_tiktok_16_9 -> {
-                mCropVideoView?.setFixedAspectRatio(true)
-                mCropVideoView?.setAspectRatio(16, 9)
-                preset_default?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_insta_1_1?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_insta_4_5?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_youtube_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_youtube_9_16?.setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
-                preset_tiktok_16_9?.setBackgroundResource(R.drawable.shape_rectangle_presets_selected)
+            for(i in 1..list_preset.size) {
+                if(i!=selected_preset) {
+                    list_preset[i-1].setBackgroundResource(R.drawable.shape_rectangle_presets_unselected)
+                }
+                else {
+                    list_preset[i-1].setBackgroundResource(R.drawable.shape_rectangle_presets_selected)
+                }
             }
         }
 

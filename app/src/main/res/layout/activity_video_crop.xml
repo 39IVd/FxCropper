@@ -22,12 +22,11 @@
             android:id="@+id/text_video_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:fontFamily="sans-serif"
             android:textColor="#def3f3f3"
             android:textSize="16dp"
-            android:textStyle="normal"
-            android:text="Frozen2.2019.720p.900..." />
+            android:textStyle="normal"  />
         <ImageButton
             android:id="@+id/btn_video_infobtn"
             android:layout_width="wrap_content"
@@ -41,8 +40,8 @@
         android:id="@+id/layout_video"
         android:layout_width="match_parent"
         android:layout_height="380dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
         <com.fx.fxcropper.cropview.CropVideoView
             android:id="@+id/cropVideoView"
             android:layout_width="match_parent"
@@ -54,30 +53,31 @@
 
     </FrameLayout>
 
+
     <RelativeLayout
         android:layout_width="80dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="13dp"
-        android:layout_marginBottom="20dp">
+        android:layout_gravity="center_horizontal" >
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ic_rewind"
             android:layout_width="20dp"
             android:layout_height="18dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginRight="30dp"
+            android:layout_marginEnd="30dp"
             android:background="@drawable/ic_white_rewind"
-            android:onClick="onClick" />
+            android:onClick="onClick"
+            android:layout_centerVertical="true"/>
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ic_play"
             android:layout_width="16dp"
             android:layout_height="18dp"
             android:layout_alignParentRight="true"
             android:background="@drawable/ic_white_play"
-            android:onClick="onClick" />
+            android:onClick="onClick"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -90,9 +90,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="17dp"
+            android:layout_marginStart="17dp"
             android:layout_marginTop="20dp"
-            android:text="프리셋 선택"
+            android:text="@string/text_select_preset"
             android:textColor="@color/white"
             android:textSize="13sp" />
         <HorizontalScrollView
@@ -105,12 +105,10 @@
                 android:gravity="center"
                 android:orientation="horizontal">
                 <RelativeLayout
-                    android:id="@+id/preset_default"
+                    android:id="@+id/preset_1"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
-                    android:layout_marginLeft="16dp"
-                    android:onClick="onClick"
-                    android:background="@drawable/shape_rectangle_presets_selected">
+                    style="@style/Preset_layout_style">
                     <ImageView
                         android:layout_width="16dp"
                         android:layout_height="13dp"
@@ -120,16 +118,14 @@
                     <TextView
                         style="@style/Preset_text_style"
                         android:layout_marginBottom="10dp"
-                        android:text="기본"
+                        android:text="@string/preset_default"
                         />
                 </RelativeLayout>
                 <RelativeLayout
-                    android:id="@+id/preset_insta_1_1"
+                    android:id="@+id/preset_2"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
-                    android:layout_marginLeft="15dp"
-                    android:onClick="onClick"
-                    android:background="@drawable/shape_rectangle_presets_unselected">
+                    style="@style/Preset_layout_style">
                     <ImageView
                         android:layout_width="14dp"
                         android:layout_height="14dp"
@@ -139,16 +135,14 @@
                     <TextView
                         style="@style/Preset_text_style"
                         android:layout_marginBottom="10dp"
-                        android:text="1:1"
+                        android:text="@string/preset_1_1"
                         />
                 </RelativeLayout>
                 <RelativeLayout
-                    android:id="@+id/preset_insta_4_5"
+                    android:id="@+id/preset_3"
                     android:layout_width="45dp"
                     android:layout_height="56dp"
-                    android:layout_marginLeft="15dp"
-                    android:onClick="onClick"
-                    android:background="@drawable/shape_rectangle_presets_unselected">
+                    style="@style/Preset_layout_style">
                     <ImageView
                         android:layout_width="14dp"
                         android:layout_height="14dp"
@@ -158,16 +152,14 @@
                     <TextView
                         style="@style/Preset_text_style"
                         android:layout_marginBottom="10dp"
-                        android:text="4:5"
+                        android:text="@string/preset_4_5"
                         />
                 </RelativeLayout>
                 <RelativeLayout
-                    android:id="@+id/preset_youtube_16_9"
+                    android:id="@+id/preset_4"
                     android:layout_width="56dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="15dp"
-                    android:onClick="onClick"
-                    android:background="@drawable/shape_rectangle_presets_unselected">
+                    style="@style/Preset_layout_style">
                     <ImageView
                         android:layout_width="14dp"
                         android:layout_height="14dp"
@@ -177,16 +169,14 @@
                     <TextView
                         style="@style/Preset_text_style"
                         android:layout_marginBottom="3dp"
-                        android:text="16:9"
+                        android:text="@string/preset_16_9"
                         />
                 </RelativeLayout>
                 <RelativeLayout
-                    android:id="@+id/preset_youtube_9_16"
+                    android:id="@+id/preset_5"
                     android:layout_width="30dp"
                     android:layout_height="56dp"
-                    android:layout_marginLeft="15dp"
-                    android:onClick="onClick"
-                    android:background="@drawable/shape_rectangle_presets_unselected">
+                    style="@style/Preset_layout_style">
                     <ImageView
                         android:layout_width="14dp"
                         android:layout_height="14dp"
@@ -196,16 +186,14 @@
                     <TextView
                         style="@style/Preset_text_style"
                         android:layout_marginBottom="10dp"
-                        android:text="9:16"
+                        android:text="@string/preset_9_16"
                         />
                 </RelativeLayout>
                 <RelativeLayout
-                    android:id="@+id/preset_tiktok_16_9"
+                    android:id="@+id/preset_6"
                     android:layout_width="56dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="15dp"
-                    android:onClick="onClick"
-                    android:background="@drawable/shape_rectangle_presets_unselected"
+                    style="@style/Preset_layout_style"
                     android:layout_marginRight="16dp">
                     <ImageView
                         android:layout_width="14dp"
@@ -215,7 +203,7 @@
                     <TextView
                         style="@style/Preset_text_style"
                         android:layout_marginBottom="3dp"
-                        android:text="16:9"
+                        android:text="@string/preset_16_9"
                         />
                 </RelativeLayout>
 
@@ -235,7 +223,7 @@
         android:textColor="#deebebeb"
         android:lineSpacingExtra="1sp"
         android:background="@color/dark_grey_two"
-        android:text="Next">
+        android:text="@string/btn_crop_next">
     </Button>
 
 
