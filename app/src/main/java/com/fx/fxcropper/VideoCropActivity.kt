@@ -23,6 +23,8 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var mCropVideoView: CropVideoView
     lateinit var srcFile: String
     lateinit var dstFile: String
+    lateinit var layout_play : RelativeLayout
+    lateinit var layout_rewind : RelativeLayout
     var list_preset = mutableListOf<RelativeLayout>()
 
     var selected_preset = 1
@@ -36,7 +38,7 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
             srcFile = intent.extras.getString("EXTRA_PATH")
         }
 
-        var videoname = srcFile!!.substring(srcFile!!.lastIndexOf('/') + 1)
+        var videoname = srcFile.substring(srcFile.lastIndexOf('/') + 1)
         text_video_name?.setText(videoname)
         Log.d("initPlayer uri ", srcFile)
 
@@ -53,6 +55,8 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
         ic_play = findViewById(R.id.ic_play) as ImageView
         ic_rewind = findViewById(R.id.ic_rewind) as ImageView
         text_video_name = findViewById(R.id.text_video_name) as TextView
+        layout_play = findViewById(R.id.layout_play) as RelativeLayout
+        layout_rewind = findViewById(R.id.layout_rewind) as RelativeLayout
         for (i in 1..6) {
             var preset_id =
                 resources.getIdentifier("preset_$i", "id", "com.fx.fxcropper")
@@ -94,7 +98,7 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        if(v.id==R.id.ic_play) {
+        if(v.id==R.id.layout_play) {
             if (mVideoPlayer.isPlaying) {
                 mVideoPlayer.play(false)
                 ic_play.setBackgroundResource(R.drawable.ic_white_play)
@@ -103,7 +107,7 @@ class VideoCropActivity : AppCompatActivity(), View.OnClickListener {
                 ic_play.setBackgroundResource(R.drawable.ic_white_pause)
             }
         }
-        else if(v.id==R.id.ic_rewind) {
+        else if(v.id==R.id.layout_rewind) {
             mVideoPlayer.seekTo(0)
             mVideoPlayer.play(true)
             ic_play.setBackgroundResource(R.drawable.ic_white_pause)

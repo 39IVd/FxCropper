@@ -53,32 +53,47 @@
 
     </FrameLayout>
 
-
-    <RelativeLayout
-        android:layout_width="80dp"
+    <LinearLayout
+        android:layout_width="110dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="center_horizontal" >
-
-        <ImageView
-            android:id="@+id/ic_rewind"
-            android:layout_width="20dp"
-            android:layout_height="18dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/ic_white_rewind"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/layout_rewind"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:onClick="onClick"
-            android:layout_centerVertical="true"/>
+            >
+            <ImageView
+                android:id="@+id/ic_rewind"
+                android:layout_width="20dp"
+                android:layout_height="18dp"
+                android:background="@drawable/ic_white_rewind"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"/>
 
-        <ImageView
-            android:id="@+id/ic_play"
-            android:layout_width="16dp"
-            android:layout_height="18dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/ic_white_play"
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/layout_play"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:onClick="onClick"
-            android:layout_centerVertical="true"/>
-    </RelativeLayout>
+            >
+            <ImageView
+                android:id="@+id/ic_play"
+                android:layout_width="16dp"
+                android:layout_height="18dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_white_play"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

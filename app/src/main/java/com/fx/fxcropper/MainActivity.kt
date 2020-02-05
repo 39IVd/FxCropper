@@ -23,7 +23,7 @@ import androidx.core.app.ActivityCompat
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
-    private var select_video_crop: Button? = null
+    lateinit var select_video_crop: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
